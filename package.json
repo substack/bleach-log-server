@@ -1,0 +1,38 @@
+{
+  "name": "hot-tub-dashboard",
+  "version": "1.0.0",
+  "description": "keep track of bleach levels and temperature control",
+  "main": "index.js",
+  "dependencies": {
+    "bulk-require": "^0.2.1",
+    "ecstatic": "^0.7.2",
+    "hyperstream": "^1.2.2",
+    "minimist": "^1.1.1",
+    "routes": "^2.0.0",
+    "virtual-dom": "^2.0.1",
+    "virtual-dom-stringify": "^3.0.1"
+  },
+  "devDependencies": {
+    "browserify": "^9.0.8",
+    "watchify": "^3.1.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "build": "browserify 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/substack/hot-tub-dashboard.git"
+  },
+  "keywords": [
+    "hot",
+    "tub",
+    "dashboard"
+  ],
+  "author": "substack",
+  "license": "public domain",
+  "bugs": {
+    "url": "https://github.com/substack/hot-tub-dashboard/issues"
+  },
+  "homepage": "https://github.com/substack/hot-tub-dashboard"
+}
