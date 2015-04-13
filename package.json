@@ -6,11 +6,16 @@
   "dependencies": {
     "bulk-require": "^0.2.1",
     "bytewise": "^0.8.0",
+    "concat-stream": "^1.4.8",
     "ecstatic": "^0.7.2",
     "hyperstream": "^1.2.2",
     "level": "^0.18.0",
     "minimist": "^1.1.1",
     "routes": "^2.0.0",
+    "size-limit-stream": "^1.0.0",
+    "strftime": "^0.9.0",
+    "through2": "^0.6.5",
+    "timeago": "^0.2.0",
     "virtual-dom": "^2.0.1",
     "virtual-dom-stringify": "^3.0.1"
   },
@@ -19,7 +24,7 @@
     "watchify": "^3.1.0"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "bin/cmd.js",
     "build": "browserify browser.js -o public/bundle.js",
     "watch": "watchify browser.js -o public/bundle.js -dv"
   },

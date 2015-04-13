@@ -5,7 +5,7 @@ var http = require('http');
 var minimist = require('minimist');
 var argv = minimist(process.argv.slice(2), {
     alias: { p: 'port', d: 'datadir' },
-    default: { port: 5000, datadir: '.' }
+    default: { port: 5000, datadir: 'hot-tub-data' }
 });
 
 var level = require('level');
