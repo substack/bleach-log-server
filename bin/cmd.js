@@ -5,7 +5,7 @@ var argv = minimist(process.argv.slice(2), {
     alias: { p: 'port', d: 'datadir', u: 'uid', g: 'gid' },
     default: {
         port: require('is-root')() ? 80 : 5000,
-        datadir: 'hot-tub-data'
+        datadir: 'bleach-data'
     }
 });
 var alloc = require('tcp-bind');

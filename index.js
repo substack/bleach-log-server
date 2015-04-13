@@ -33,6 +33,9 @@ function Server (db) {
     });
     
     this.router.addRoute('/save', function (req, res, m) {
+        if (req.method !== 'POST') {
+            return error(res, 400, 'expected a POST');
+        }
         req.pipe(post(function (err, params) {
             if (err) return error(res, 400, err);
             
