@@ -36,21 +36,24 @@
   "scripts": {
     "start": "bin/cmd.js",
     "build": "browserify browser.js -o public/bundle.js",
-    "watch": "watchify browser.js -o public/bundle.js -dv"
+    "watch": "watchify browser.js -o public/bundle.js -dv",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/substack/hot-tub-dashboard.git"
+    "url": "git://github.com/substack/bleach-log-server.git"
   },
   "keywords": [
-    "hot",
-    "tub",
+    "hot tub",
+    "pool",
+    "web server",
+    "log",
     "dashboard"
   ],
   "author": "substack",
-  "license": "public domain",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/substack/hot-tub-dashboard/issues"
+    "url": "https://github.com/substack/bleach-log-server/issues"
   },
-  "homepage": "https://github.com/substack/hot-tub-dashboard"
+  "homepage": "https://github.com/substack/bleach-log-server"
 }
