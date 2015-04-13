@@ -5,8 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "bulk-require": "^0.2.1",
+    "bytewise": "^0.8.0",
     "ecstatic": "^0.7.2",
     "hyperstream": "^1.2.2",
+    "level": "^0.18.0",
     "minimist": "^1.1.1",
     "routes": "^2.0.0",
     "virtual-dom": "^2.0.1",
@@ -18,7 +20,8 @@
   },
   "scripts": {
     "start": "node server.js",
-    "build": "browserify 
+    "build": "browserify browser.js -o public/bundle.js",
+    "watch": "watchify browser.js -o public/bundle.js -dv"
   },
   "repository": {
     "type": "git",
