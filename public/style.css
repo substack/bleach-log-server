@@ -1,4 +1,6 @@
 body {
+  color: #601080;
+  background-color: #c090f0;
   font-family: ubuntu, helvetica, sans-serif;
 }
 
@@ -8,7 +10,7 @@ body {
 }
 
 .bleach:nth-child(odd) {
-  background-color: #d5d0df;
+  background-color: #d5b0df;
 }
 
 .bleach:nth-child(even) {
@@ -16,7 +18,7 @@ body {
 }
 
 .bleach.dark {
-  background-color: #d5d0df;
+  background-color: #d5b0df;
 }
 
 .bleach.light {
