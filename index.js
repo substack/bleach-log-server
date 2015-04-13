@@ -11,10 +11,12 @@ var ecstatic = require('ecstatic')(pubdir);
 var sizelim = require('size-limit-stream');
 var concat = require('concat-stream');
 var through = require('through2');
+var defined = require('defined');
 
 var qs = require('querystring');
 var inherits = require('inherits');
 var EventEmitter = require('events').EventEmitter;
+var ndjson = require('ndjson');
 
 var render = { row: require('./render/row.js') };
 
@@ -30,6 +32,26 @@ function Server (db) {
         read('layout.html').pipe(hyperstream({
             '#content': bleachlog(db)
         })).pipe(res);
+    });
+    
+    this.router.addRoute('/data', function (req, res, m) {
+        var opts = {
+            gt: [ 'bleach', defined(m.params.gt, null) ],
+            lt: [ 'bleach', undefined ],
+            limit: defined(m.params.limit, 25),
+            reverse: true
+        };
+        db.createReadStream(opts)
+            .pipe(through.obj(function (row, enc, next) {
+                this.push({
+                    time: new Date(row.key[1]).toISOString(),
+                    cups: row.value.cups
+                });
+                next();
+            }))
+            .pipe(ndjson.stringify())
+            .pipe(res);
+        ;
     });
     
     this.router.addRoute('/save', function (req, res, m) {
