@@ -22,6 +22,16 @@ bleach-log-server OPTIONS
 
 ```
 
+# http routes
+
+## POST /save
+
+Send a url-encoded POST message with a number of `cups` of bleach to log.
+
+## GET /data
+
+Return a 
+
 # install
 
 With [npm](https://npmjs.org) do:

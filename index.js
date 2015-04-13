@@ -12,6 +12,7 @@ var sizelim = require('size-limit-stream');
 var concat = require('concat-stream');
 var through = require('through2');
 var defined = require('defined');
+var xtend = require('xtend');
 
 var qs = require('querystring');
 var inherits = require('inherits');
@@ -36,15 +37,15 @@ function Server (db) {
     
     this.router.addRoute('/data', function (req, res, m) {
         var opts = {
-            gt: [ 'bleach', defined(m.params.gt, null) ],
+            gt: [ 'bleach', null ],
             lt: [ 'bleach', undefined ],
-            limit: defined(m.params.limit, 25),
+            limit: Number(defined(m.params.limit, 25)),
             reverse: true
         };
         db.createReadStream(opts)
             .pipe(through.obj(function (row, enc, next) {
                 this.push({
-                    time: new Date(row.key[1]).toISOString(),
+                    time: row.key[1],
                     cups: row.value.cups
                 });
                 next();
@@ -72,8 +73,9 @@ function Server (db) {
 }
 
 Server.prototype.handle = function (req, res) {
-    var m = this.router.match(req.url);
-    if (m) m.fn(req, res, { params: m.params })
+    var m = this.router.match(req.url.split('?')[0]);
+    var q = qs.parse(req.url.split('?').slice(1).join('?'));
+    if (m) m.fn(req, res, { params: xtend(q, m.params) })
     else ecstatic(req, res)
 };
 
