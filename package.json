@@ -1,8 +1,11 @@
 {
-  "name": "hot-tub-dashboard",
+  "name": "bleach-log-server",
   "version": "1.0.0",
-  "description": "keep track of bleach levels and temperature control",
+  "description": "keep track of bleach levels for a hot tub or a pool",
   "main": "index.js",
+  "bin": {
+    "bleach-log-server": "bin/cmd.js"
+  },
   "dependencies": {
     "bulk-require": "^0.2.1",
     "bytewise": "^0.8.0",
@@ -10,6 +13,7 @@
     "ecstatic": "^0.7.2",
     "hyperstream": "^1.2.2",
     "inherits": "^2.0.1",
+    "is-root": "^1.0.0",
     "level": "^0.18.0",
     "main-loop": "^3.1.0",
     "minimist": "^1.1.1",
@@ -17,6 +21,7 @@
     "size-limit-stream": "^1.0.0",
     "split2": "^0.2.1",
     "strftime": "^0.9.0",
+    "tcp-bind": "^1.2.0",
     "through2": "^0.6.5",
     "timeago": "^0.2.0",
     "vdom-virtualize": "0.0.6",

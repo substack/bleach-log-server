@@ -1,13 +1,19 @@
 #!/usr/bin/env node
 
-var http = require('http');
-
 var minimist = require('minimist');
 var argv = minimist(process.argv.slice(2), {
-    alias: { p: 'port', d: 'datadir' },
-    default: { port: 5000, datadir: 'hot-tub-data' }
+    alias: { p: 'port', d: 'datadir', u: 'uid', g: 'gid' },
+    default: {
+        port: require('is-root')() ? 80 : 5000,
+        datadir: 'hot-tub-data'
+    }
 });
+var alloc = require('tcp-bind');
+var fd = alloc(argv.port);
+if (argv.gid !== undefined) process.setgid(argv.gid);
+if (argv.uid !== undefined) process.setuid(argv.uid);
 
+var http = require('http');
 var level = require('level');
 var db = level(argv.datadir, {
     keyEncoding: require('bytewise'),
