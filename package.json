@@ -1,6 +1,6 @@
 {
   "name": "bleach-log-server",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "keep track of bleach levels for a hot tub or a pool",
   "main": "index.js",
   "bin": {
