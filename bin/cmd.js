@@ -1,13 +1,27 @@
 #!/usr/bin/env node
 
+var fs = require('fs');
+var path = require('path');
 var minimist = require('minimist');
 var argv = minimist(process.argv.slice(2), {
-    alias: { p: 'port', d: 'datadir', u: 'uid', g: 'gid' },
+    alias: {
+        p: 'port',
+        d: 'datadir',
+        u: 'uid',
+        g: 'gid',
+        h: 'help'
+    },
     default: {
         port: require('is-root')() ? 80 : 5000,
         datadir: 'bleach-data'
     }
 });
+if (argv.help || argv._[0] === 'help') {
+    return fs.createReadStream(path.join(__dirname, 'usage.txt'))
+        .pipe(process.stdout)
+    ;
+}
+
 var alloc = require('tcp-bind');
 var fd = alloc(argv.port);
 if (argv.gid !== undefined) process.setgid(argv.gid);
