@@ -15,34 +15,43 @@ var ecstatic = require('ecstatic')(pubdir);
 var sizelim = require('size-limit-stream');
 var concat = require('concat-stream');
 var through = require('through2');
-var qs = require('querystring');
 
-module.exports = function (db) {
-    var router = Router();
+var qs = require('querystring');
+var inherits = require('inherits');
+var EventEmitter = require('events').EventEmitter;
+
+module.exports = Server;
+inherits(Server, EventEmitter);
+
+function Server (db) {
+    if (!(this instanceof Server)) return new Server(db);
+    var self = this;
+    this.router = Router();
     
-    router.addRoute('/', function (req, res, m) {
+    this.router.addRoute('/', function (req, res, m) {
         read('layout.html').pipe(hyperstream({
             '#content': bleachlog(db)
         })).pipe(res);
     });
     
-    router.addRoute('/save', function (req, res, m) {
+    this.router.addRoute('/save', function (req, res, m) {
         req.pipe(post(function (err, params) {
             if (err) return error(res, 400, err);
             
             var key = [ 'bleach', Date.now() ];
             db.put(key, params, function (err) {
                 if (err) error(res, 500, err)
-                else res.end('ok\n')
+                res.end('ok\n')
+                self.emit('save', key, params);
             });
         }));
     });
-    
-    return function (req, res) {
-        var m = router.match(req.url);
-        if (m) m.fn(req, res, { params: m.params })
-        else ecstatic(req, res)
-    };
+}
+
+Server.prototype.handle = function (req, res) {
+    var m = this.router.match(req.url);
+    if (m) m.fn(req, res, { params: m.params })
+    else ecstatic(req, res)
 };
 
 function error (res, code, msg) {
