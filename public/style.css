@@ -1,0 +1,38 @@
+body {
+  font-family: ubuntu, helvetica, sans-serif;
+}
+
+.bleach {
+  font-size: 1.2em;
+  padding: 15px;
+}
+
+.bleach:nth-child(odd) {
+  background-color: #d5d0df;
+}
+
+.bleach:nth-child(even) {
+  background-color: #f0e5ff;
+}
+
+.bleach.dark {
+  background-color: #d5d0df;
+}
+
+.bleach.light {
+  background-color: #f0e5ff;
+}
+
+.bleach .time {
+  display: inline-block;
+  width: 28ex;
+}
+
+.bleach .ago {
+}
+
+.bleach .cups {
+  display: inline-block;
+  font-weight: bold;
+  vertical-align: top;
+}

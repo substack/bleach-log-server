@@ -26,14 +26,16 @@ var wsock = require('websocket-stream');
 wsock.createServer({ server: server }, onwsock);
 
 function onwsock (stream) {
-    server.on('save', onsave);
+    app.on('save', onsave);
     stream.on('end', onend);
     stream.on('close', onend);
+    stream.on('error', function () {});
     
     function onsave (key, value) {
-        stream.push(JSON.stringify({ key: key, value: value }) + '\n');
+        stream.write(JSON.stringify({ key: key, value: value }) + '\n');
     }
     function onend () {
+        ended = true;
         server.removeListener('save', onsave);
     }
 }

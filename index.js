@@ -3,11 +3,7 @@ var path = require('path');
 var fs = require('fs');
 var hyperstream = require('hyperstream');
 var vstr = require('virtual-dom-stringify');
-var h = require('virtual-dom/h');
 var Router = require('routes');
-
-var strftime = require('strftime');
-var timeago = require('timeago');
 
 var pubdir = path.join(__dirname, 'public');
 var ecstatic = require('ecstatic')(pubdir);
@@ -19,6 +15,8 @@ var through = require('through2');
 var qs = require('querystring');
 var inherits = require('inherits');
 var EventEmitter = require('events').EventEmitter;
+
+var render = { row: require('./render/row.js') };
 
 module.exports = Server;
 inherits(Server, EventEmitter);
@@ -64,22 +62,15 @@ function bleachlog (db) {
     var opts = {
         gt: [ 'bleach', null ],
         lt: [ 'bleach', undefined ],
-        limit: 25
+        limit: 25,
+        reverse: true
     };
     db.createReadStream(opts).pipe(r);
     var rows = [];
     return r;
     
     function write (row, enc, next) {
-        var time = new Date(row.key[1]);
-        this.push(vstr(h('div.bleach', [
-            h('div.time', [
-                strftime('%Y-%m-%d %T', time),
-                '\n',
-                h('div.ago', timeago(time))
-            ]),
-            h('div.cups', String(row.value.cups) + ' cups')
-        ])));
+        this.push(vstr(render.row(row)));
         next();
     }
 }
